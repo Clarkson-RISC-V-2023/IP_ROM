@@ -1,4 +1,4 @@
-module rom_tb;
+module tb_rom;
     reg [addr_width-1:0] address;
     wire [data_width-1:0] data;
 
