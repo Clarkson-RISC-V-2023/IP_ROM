@@ -27,5 +27,10 @@ jobs:
           cd rom
           git checkout esola-thomas/Init_ROM_from_mem_and_error_handler
           mkdir -p out
-          iverilog -o out/rom.vpp -s tb_rom verif/tb_rom.sv rtl/rom.sv -D INIT_FILE=\"init_rom.mem\"
+          echo Compile RTL
+          iverilog -o out/rom_rtl -s rom rtl/rom.sv -D INIT_FILE=\"init_rom.mem\"
+          echo Compile tb
+          iverilog -o out/rom_tb verif/tb_rom.sv
+          echo link tb and RTL
+          iverilog -o rom.vpp rom_tb rom_rtl
           tree
