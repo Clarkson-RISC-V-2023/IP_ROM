@@ -1,6 +1,6 @@
 name: iverilog compile on PR
 
-on: [push, pull_request]
+on: pull_request
 jobs:
   iverilog-compile:
     runs-on: ubuntu-latest
@@ -24,7 +24,8 @@ jobs:
       - name: Clone project repo and compile with iverilog
         run: |
           git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git rom
-          tree
+          cd rom
+          git checkout esola-thomas/Init_ROM_from_mem_and_error_handler
           mkdir -p out
-          iverilog -o out/rom.vpp -s tb_rom rom/verif/tb_rom.sv rom/rtl/rom.sv rom/rtl/init_rom.mem
+          iverilog -o out/rom.vpp -s tb_rom verif/tb_rom.sv rtl/rom.sv rtl/init_rom.mem
           tree
