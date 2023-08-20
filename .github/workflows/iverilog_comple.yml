@@ -21,10 +21,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y iverilog
-          git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git
-          tree
       - name: Clone project repo and compile with iverilog
         run: |
+          git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git rom
+          tree
           mkdir -p out
           iverilog -o out/rom.vpp -s tb_rom rom/verif/tb_rom.sv rom/rtl/rom.sv rom/rtl/init_rom.mem
           tree
