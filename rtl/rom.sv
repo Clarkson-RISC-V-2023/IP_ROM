@@ -13,7 +13,7 @@ module rom #(
 
     // Read memory initialization file and handle errors
     initial begin
-        read_success = $readmemh("init_rom.mem", rom_data);
+        read_success = $readmemh(INIT_FILE, rom_data); // iverilog -o out/rom.vpp -s tb_rom verif/tb_rom.sv rtl/rom.sv rtl/init_rom.mem -D INIT_FILE=\"init_rom.mem\"
         if (!read_success) begin
             $display("Error: Unable to read memory initialization file.");
             error = 1;
