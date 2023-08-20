@@ -1,6 +1,6 @@
 module rom #(
-    parameter addr_width = 5,
-    parameter data_width = 16
+    parameter data_width = 16,
+    parameter addr_width = 5 * data_width
 )(
     input   [addr_width-1:0] addr_i,
     output  [data_width-1:0] data_o,
