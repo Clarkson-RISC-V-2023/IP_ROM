@@ -28,6 +28,7 @@ jobs:
           git checkout esola-thomas/Init_ROM_from_mem_and_error_handler
           mkdir -p out
           iverilog -o out/tb_rom -s tb_rom verif/tb_rom.sv rtl/rom.sv -y ./
+          tree
           cd out/
           vvp rom.vpp
           tree
