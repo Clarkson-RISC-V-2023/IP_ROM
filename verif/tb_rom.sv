@@ -12,7 +12,7 @@ module tb_rom # (
 
     initial begin
         $dumpfile("rom_sim.vcd");
-        $dumpvars(tb_rom, 0);
+        $dumpvars(0, tb_rom);
 
         // Initialize address with desired values
         address = 8'b00000000; // Example
