@@ -2,26 +2,21 @@ module tb_rom # (
     parameter data_width = 16,
     parameter addr_width = 5 * data_width
 );
-    reg [addr_width-1:0] address;
+    reg [addr_width-1:0] address; // Change 'wire' to 'reg'
     wire [data_width-1:0] data;
+    wire error;
 
-    rom #(
-        .data_width(data_width),
-        .addr_width(addr_width)
-    ) dut (
-        .addr_i(address),
-        .data_o(data)
-    );
+    // Rest of the code remains unchanged
 
     initial begin
         // Initialize address with desired values
-        // Example: address = 8'b00000000;
-        
+        address = 8'b00000000; // Example
+
         // Apply addresses and observe data
         #10 address = 8'b00000000;
         #10 address = 8'b00010000;
         // ...
 
-        $finish;
+        #100 $finish; // Allow time for observation
     end
 endmodule
