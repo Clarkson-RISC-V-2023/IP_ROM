@@ -30,5 +30,13 @@ jobs:
           iverilog -o out/rom_sim -s tb_rom verif/tb_rom.sv rtl/rom.sv -y ./
           cd out/
           vvp rom_sim
+          cd ..
           tree
           echo Build COMPLETE
+      - name: Upload Artifact 
+        uses: actions/upload-artifact@v2
+        with:
+          name: "RTL_build"
+          path: |
+            **/out/**
+          if-no-files-found: error
