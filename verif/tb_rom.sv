@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module tb_rom # (
     parameter data_width = 16,
     parameter addr_width = 5 * data_width
@@ -9,6 +11,7 @@ module tb_rom # (
     // Rest of the code remains unchanged
 
     initial begin
+        $dumpfile("test.vcd");
         // Initialize address with desired values
         address = 8'b00000000; // Example
 
