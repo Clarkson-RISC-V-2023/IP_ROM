@@ -11,7 +11,9 @@ module tb_rom # (
     // Rest of the code remains unchanged
 
     initial begin
-        $dumpfile("test.vcd");
+        $dumpfile("rom_sim.vcd");
+        $dumpvars(tb_rom, 0);
+
         // Initialize address with desired values
         address = 8'b00000000; // Example
 
@@ -21,5 +23,6 @@ module tb_rom # (
         // ...
 
         #100 $finish; // Allow time for observation
+        $display("Sim COMPLETE...");
     end
 endmodule
