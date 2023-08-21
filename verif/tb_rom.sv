@@ -11,7 +11,7 @@ module tb_rom # (
     // Rest of the code remains unchanged
 
     initial begin
-        $dumpfile("rom_sim.vcd");
+        $dumpfile("out/rom_sim.vcd");
         $dumpvars(0, tb_rom);
 
         // Initialize address with desired values
