@@ -1,4 +1,4 @@
-name: iverilog compile on PR
+name: ROM tb compile with iverilog on PR push
 
 on: pull_request
 jobs:
