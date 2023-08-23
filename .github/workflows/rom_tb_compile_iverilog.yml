@@ -1,6 +1,6 @@
-name: iverilog compile on PR
+name: ROM tb compile with iverilog on PR push
 
-on: [push, pull_request]
+on: pull_request
 jobs:
   iverilog-compile:
     runs-on: ubuntu-latest
@@ -23,7 +23,20 @@ jobs:
           sudo apt-get install -y iverilog
       - name: Clone project repo and compile with iverilog
         run: |
-          git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git
+          git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git rom
+          cd rom
+          git checkout esola-thomas/Init_ROM_from_mem_and_error_handler
           mkdir -p out
-          iverilog -o out/rom.vpp -s tb_rom rom/verif/tb_rom.sv rom/rtl/rom.sv rom/rtl/init_rom.mem
+          iverilog -o out/rom_sim -s tb_rom verif/tb_rom.sv rtl/rom.sv -y ./
+          cd out/
+          vvp rom_sim
+          cd ..
           tree
+          echo Build COMPLETE
+      - name: Upload Artifact 
+        uses: actions/upload-artifact@v2
+        with:
+          name: "RTL_build"
+          path: |
+            **/out/**
+          if-no-files-found: error

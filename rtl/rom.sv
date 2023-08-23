@@ -1,25 +1,27 @@
+// TODO does the ROM address increase on increments of 1 or 16? Right now set as increments of 1
 module rom #(
-    parameter addr_width = 32,
-    parameter data_width = 32
+    parameter DATA_WIDTH = 16,      // Word length
+    parameter ADDR_WIDTH = 8,       // Addr length
+    parameter WORDS = 5,            // Words
+    parameter ENABLE_ROM_INIT = 1   // Default: No initialization
+
 )(
-    input   [addr_width-1:0] addr_i,
-    output  [data_width-1:0] data_o
+    input wire [ADDR_WIDTH-1:0] addr_i,
+    output reg [DATA_WIDTH-1:0] data_o
 );
-
-    // Declare registers that will store data from ROM
-    reg [data_width-1:0] rom_data [0:(2**addr_width)-1];
-
-    generate
-        for (genvar i = 0; i < (2**addr_width); i++) begin : INIT_ROM
-            initial begin
-                // Initialize rom_data[i] based on your requirements
-                rom_data[i] = 32'h12345678;
-            end
+    
+    
+    reg [DATA_WIDTH-1:0] memory [0:WORDS-1]; // 5 words of 16 bits each
+    
+    // ROM initialization block
+    initial begin
+        if (ENABLE_ROM_INIT) begin
+            $readmemh("rom_contents.hex", memory);
         end
-    endgenerate
-
-    always @(*) begin
-        data_o = rom_data[addr_i];
     end
 
+    // ROM logic here
+    always @(*) begin
+        data_o = memory[addr_i];
+    end
 endmodule
