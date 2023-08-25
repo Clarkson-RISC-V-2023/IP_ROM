@@ -25,7 +25,7 @@ jobs:
         run: |
           git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git rom
           cd rom
-          git checkout esola-thomas/Init_ROM_from_mem_and_error_handler
+          git checkout main
           mkdir -p out
           iverilog -o out/rom_sim -s tb_rom verif/tb_rom.sv rtl/rom.sv -y ./
           cd out/
