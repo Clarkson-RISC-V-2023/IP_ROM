@@ -23,7 +23,7 @@ module tb_rom # (
     );
 
     initial begin
-        $readmemh("init_rom.mem", dut_rom.memory);
+        $readmemh("/workspace/esola-thomas/top-main/src/ip/rom/init_rom.mem", dut_rom.memory);
         $dumpfile("rom_sim.vcd");
         $dumpvars(0, tb_rom);
 

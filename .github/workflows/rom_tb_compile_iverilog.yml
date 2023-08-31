@@ -1,33 +1,28 @@
 name: ROM tb compile with iverilog on PR push
 
-on: pull_request
+on: 
+  push: 
+    branches: 
+      - main 
+  pull_request:
+  
 jobs:
   iverilog-compile:
     runs-on: ubuntu-latest
     steps:
-      - name: SetUp SSH
-        env:
-          SSH_PRIVATE: ${{ secrets.ACTIONS_SSH_PRIVATE }}
-          SSH_PUBLIC: ${{ secrets.ACTIONS_SSH_PUBLIC }}
-          ARTIFACT_NAME: "RTL_build_$(TZ='America/New_York' date '+%F-%H')"
-          OUT_PATH: ${{ env.PWD }}/out
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ env.SSH_PRIVATE }}" > ~/.ssh/id_rsa
-          echo "${{ env.SSH_PUBLIC }}" > ~/.ssh/id_rsa.pub
-          chmod 600 ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa.pub
       - name: Download required packages
         run: |
           sudo apt-get update
           sudo apt-get install -y iverilog
-      - name: Clone project repo and compile with iverilog
+      - name : Checkout repo
+        uses: actions/checkout@v3
+        with:
+          path: rom
+      - name: Compile with iverilog
         run: |
-          git clone --recurse-submodules git@github.com:Clarkson-RISC-V-2023/IP_ROM.git rom
           cd rom
-          git checkout main
           mkdir -p out
-          iverilog -o out/rom_sim -s tb_rom verif/tb_rom.sv rtl/rom.sv -y ./
+          iverilog -y ./ -o out/rom_sim -s tb_rom verif/tb_rom.sv rtl/rom.sv 
           cd out/
           vvp rom_sim
           cd ..
