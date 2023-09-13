@@ -15,15 +15,13 @@ module tb_rom # (
     rom #(
         .DATA_WIDTH(DATA_WIDTH),
         .ADDR_WIDTH(ADDR_WIDTH),
-        .WORDS(WORDS),
-        .ENABLE_ROM_INIT(ENABLE_ROM_INIT)
+        .WORDS(WORDS)
     ) dut_rom (
         .addr_i(address),
         .data_o(data)
     );
 
     initial begin
-        $readmemh("/workspace/esola-thomas/top-main/src/ip/rom/init_rom.mem", dut_rom.memory);
         $dumpfile("rom_sim.vcd");
         $dumpvars(0, tb_rom);
 

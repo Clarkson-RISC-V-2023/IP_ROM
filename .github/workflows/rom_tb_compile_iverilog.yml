@@ -22,7 +22,7 @@ jobs:
         run: |
           cd rom
           mkdir -p out
-          iverilog -y ./ -o out/rom_sim -s tb_rom verif/tb_rom.sv rtl/rom.sv 
+          iverilog -s tb_rom -o out/rom_sim -g2005-sv -D ROM_INIT_PATH=\"./init_rom.mem\" verif/tb_rom.sv rtl/rom.sv
           cd out/
           vvp rom_sim
           cd ..

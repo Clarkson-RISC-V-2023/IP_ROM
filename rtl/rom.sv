@@ -1,9 +1,12 @@
 // TODO does the ROM address increase on increments of 1 or 16? Right now set as increments of 1
+`timescale 1ns/1ps
+`define ROM_INIT_PATH ""
+
 module rom #(
     parameter DATA_WIDTH = 16,      // Word length
     parameter ADDR_WIDTH = 8,       // Addr length
     parameter WORDS = 5,            // Words
-    parameter ENABLE_ROM_INIT = 1   // Default: No initialization
+    parameter string ROM_INIT_PATH = `ROM_INIT_PATH // If left unasigned ROM needs to be initialized externally
 
 )(
     input wire [ADDR_WIDTH-1:0] addr_i,
@@ -15,8 +18,8 @@ module rom #(
     
     // ROM initialization block
     initial begin
-        if (ENABLE_ROM_INIT) begin
-            $readmemh("rom_contents.hex", memory);
+        if (ROM_INIT_PATH != "") begin
+            $readmemh(ROM_INIT_PATH, memory);
         end
     end
 
